@@ -104,7 +104,7 @@ Lottery.prototype = {
     },
     drawLottery: function () {
         this.background = this.background || this.createElement('canvas', {
-            style: 'position:absolute;left:0;top:0;'
+            style: 'position:absolute;left:0;top:0;display:none;'
         });
         this.mask = this.mask || this.createElement('canvas', {
             style: 'position:absolute;left:0;top:0;'
@@ -151,6 +151,7 @@ Lottery.prototype = {
     },
     drawMask: function() {
         this.resizeCanvas(this.mask, this.width, this.height);
+        var background = this.background;
         if (this.coverType == 'color') {
             this.maskCtx.fillStyle = this.cover;
             this.maskCtx.fillRect(0, 0, this.width, this.height);
@@ -161,6 +162,7 @@ Lottery.prototype = {
             image.onload = function () {
                 _this.maskCtx.drawImage(this, 0, 0);
                 _this.maskCtx.globalCompositeOperation = 'destination-out';
+                background.style = 'position:absolute;left:0;top:0;';
             }
             image.src = this.cover;
         }
