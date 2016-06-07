@@ -9,8 +9,8 @@ function Lottery(id, cover, coverType, width, height, drawPercentCallback) {
     this.maskCtx = null;
     this.lottery = null;
     this.lotteryType = 'image';
-    this.width = width || 300;
-    this.height = height || 100;
+    this.width = width;
+    this.height = height;
     this.clientRect = null;
     this.drawPercentCallback = drawPercentCallback;
 }
@@ -42,7 +42,7 @@ Lottery.prototype = {
     },
     drawPoint: function (x, y) {
         this.maskCtx.beginPath();
-        var radgrad = this.maskCtx.createRadialGradient(x, y, 0, x, y, 30);
+        var radgrad = this.maskCtx.createRadialGradient(x, y, 0, x, y, 50);
         radgrad.addColorStop(0, 'rgba(0,0,0,0.6)');
         radgrad.addColorStop(1, 'rgba(255, 255, 255, 0)');
         this.maskCtx.fillStyle = radgrad;
@@ -124,8 +124,8 @@ Lottery.prototype = {
             var image = new Image(),
                 _this = this;
             image.onload = function () {
-                _this.width = this.width;
-                _this.height = this.height;
+            	if(undefined == _this.width || null == _this.width) _this.width = this.width;
+            	if(undefined == _this.height || null == _this.height) _this.height = this.height;
                 _this.resizeCanvas(_this.background, this.width, this.height);
                 _this.backCtx.drawImage(this, 0, 0);
                 _this.drawMask();
